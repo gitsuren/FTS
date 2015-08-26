@@ -1,6 +1,6 @@
 //package com.suru.fts.service.program;
 //
-//import com.deere.jdc.jdrpshared.common.BaseTestProgram;
+//import com.suru.jdrpshared.common.BaseTestProgram;
 //
 //
 ///**

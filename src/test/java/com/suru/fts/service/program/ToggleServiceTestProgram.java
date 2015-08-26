@@ -8,7 +8,6 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.transaction.annotation.Transactional;
 //
-//import com.deere.jdc.jdrpshared.domain.DomainObject;
 //import com.suru.fts.mongo.domain.Feature;
 //import com.suru.fts.mongo.domain.FeatureGroup;
 //import com.suru.fts.mongo.domain.FeatureStatus;
@@ -58,7 +57,7 @@
 //				"BEGINNING FARMER RANCHER PART 2", FeatureStatus.RELEASED_ID);
 //		MyFeature f4 = new MyFeature("PRODUCTION_TEST", "PRODUCTION_TEST",
 //				FeatureStatus.NOT_RELEASED_ID);
-//		testNewSystem("JDA", "JOHN DEERE AGENT", f1, f2, f3, f4);
+//		testNewSystem("SURENDRA", "SURENDRA TEST SYSTEM", f1, f2, f3, f4);
 //	}
 //
 //	@SuppressWarnings("unused")
