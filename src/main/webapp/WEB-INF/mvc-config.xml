@@ -13,7 +13,6 @@
 
 	<!-- Uncomment and your base-package here: <context:component-scan base-package="org.springframework.samples.web"/> -->
 
-	<!-- <context:component-scan base-package="com.deere.jdic" /> -->
 	<context:component-scan base-package="com.suru.fts" />
 
 	<mvc:annotation-driven />
@@ -58,7 +57,6 @@
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>
 
-	<!-- <mongo:repositories base-package="com.deere.jdic.mongo.repository" /> -->
 	<mongo:repositories base-package="com.suru.fts.mongo.repository" />
 	
 	<!-- Tiles configuration 
