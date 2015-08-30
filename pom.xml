@@ -10,6 +10,30 @@
 
   <build>
     <finalName>ftsweb</finalName>
+    
+    <plugins>
+    	<plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.7.v20131107</version>
+                <configuration>
+                <webApp>
+                    <contextPath>/fts</contextPath>
+                </webApp>
+            </configuration>
+               <!--  <configuration>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
+                    <reload>manual</reload>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>ENVIRONMENT_NAME</name>
+                            <value>local</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>  -->
+            </plugin>
+    </plugins>
   </build>
 
   <properties>
@@ -64,12 +88,12 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test-mvc</artifactId>
-			<version>${spring-framework-test.version}</version>
-			<scope>test</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework</groupId> -->
+<!-- 			<artifactId>spring-test-mvc</artifactId> -->
+<!-- 			<version>1.0.0.M2</version> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
 
 		<!-- Other Web dependencies -->
 		<dependency>

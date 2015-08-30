@@ -1,7 +1,5 @@
 package com.suru.fts.service;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -273,6 +271,8 @@ public class ToggleService {
 		});
 		group.setMembers(iterableMembers.toSet());
 		featureGroupRepository.save(group);
+		
+		//update the toggle system
 	}
 
 
@@ -288,6 +288,8 @@ public class ToggleService {
 		//updateCreationFields(id, member);
 		featureGroup.getMembers().add(member);
 		featureGroupRepository.save(featureGroup);
+		
+		//update the toggel system
 	}
 
 
