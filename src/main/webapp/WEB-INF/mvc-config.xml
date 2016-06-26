@@ -23,8 +23,9 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
 	<!-- <mvc:resources mapping="/**" location="/" /> -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
@@ -41,38 +42,54 @@
 		<property name="defaultViews">
 			<list>
 				<bean
-					class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
 			</list>
 		</property>
 	</bean>
 
-
-	<!-- <mongo:mongo host="127.0.0.1" port="27017" />
-	<mongo:db-factory dbname="testDB" /> -->
-	
-	<!-- <mongo:mongo host="ds033153.mongolab.com" port="33153" /> -->
-	<mongo:db-factory host="ds033153.mongolab.com" port="33153" dbname="fts" username="suren" password="suren"/>
+<!-- 	<mongo:mongo host="ds033153.mlab.com" port="33153" />
+	<mongo:db-factory dbname="fts" username="suren"
+		password="suren" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
-	</bean>
+	</bean> -->
+
+
+<!-- 	<bean id="template" class="org.springframework.data.mongodb.core.MongoTemplate"> 
+		<constructor-arg> <bean class="com.mongodb.MongoClient"> <constructor-arg 
+		value="ds033153.mlab.com" /> <constructor-arg value="33153" /> </bean> </constructor-arg> 
+		<constructor-arg value="fts" /> </bean>  -->
+		
+		<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+<constructor-arg name="mongo" ref="mongo"/>
+<constructor-arg name="databaseName" value="fts"/>
+<constructor-arg name="userCredentials" ref="mongoCredentials"/>
+</bean>
+
+<!-- Factory bean that creates the Mongo instance -->
+<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+<property name="host" value="ds033153.mlab.com"/>
+<property name="port" value="33153"/>
+</bean>
+
+<bean id="mongoCredentials" 
+  class="org.springframework.data.authentication.UserCredentials">
+     <constructor-arg name="username" value="suren" />
+     <constructor-arg name="password" value="suren" />
+</bean>
 
 	<mongo:repositories base-package="com.suru.fts.mongo.repository" />
-	
-	<!-- Tiles configuration 
-    <bean id="tilesConfigurer"
-        class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-        <property name="definitions">
-            <list>
-                <value>/WEB-INF/tiles/tiles-definitions.xml</value>
-            </list>
-        </property>
-    </bean> -->
-    
-    <bean id="toggleVotingManager" class="com.suru.fts.voter.ToggleVoterManager">
+
+	<!-- Tiles configuration <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"> 
+		<property name="definitions"> <list> <value>/WEB-INF/tiles/tiles-definitions.xml</value> 
+		</list> </property> </bean> -->
+
+	<bean id="toggleVotingManager" class="com.suru.fts.voter.ToggleVoterManager">
 		<property name="toggleVoters">
 			<map>
-				<entry key="com.suru.fts.mongo.domain.strategy.GroupStrategy" value-ref="groupVoters" />
+				<entry key="com.suru.fts.mongo.domain.strategy.GroupStrategy"
+					value-ref="groupVoters" />
 			</map>
 		</property>
 	</bean>
