@@ -5,3 +5,4 @@ Requires:
 -   Java 1.7 +
 -   Maven
 -   MongoDB as backend
+-   Spring 4+
