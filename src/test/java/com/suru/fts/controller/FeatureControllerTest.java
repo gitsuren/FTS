@@ -1,17 +1,11 @@
 package com.suru.fts.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Matchers.isA;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
-
+import com.suru.fts.MockMVCBaseTest;
+import com.suru.fts.dto.FeatureFormBean;
+import com.suru.fts.model.ViewModelBuilder;
+import com.suru.fts.mongo.domain.Feature;
+import com.suru.fts.mongo.domain.ToggleSystem;
+import com.suru.fts.service.ToggleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -22,12 +16,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.suru.fts.MockMVCBaseTest;
-import com.suru.fts.dto.FeatureFormBean;
-import com.suru.fts.mongo.domain.Feature;
-import com.suru.fts.mongo.domain.ToggleSystem;
-import com.suru.fts.model.ViewModelBuilder;
-import com.suru.fts.service.ToggleService;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FeatureControllerTest extends MockMVCBaseTest {
@@ -88,10 +85,10 @@ public class FeatureControllerTest extends MockMVCBaseTest {
 		ArgumentCaptor<FeatureFormBean> ffbCaptor = ArgumentCaptor.forClass(FeatureFormBean.class);
 
 		when(mockToggleService.getSystem("testSystem")).thenReturn(mockToggleSystem);
-		mockMVC.perform(post("/admin/system/testSystem/features/add?featureName=newFeature&description=This is a test&status=LIMITED")).andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name("redirect:/admin/system/testSystem"));;
+		mockMVC.perform(post("/admin/system/testSystem/features/add?featureName=newFeature&description=This is a test&status=LIMITED")).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name("redirect:/admin/system/testSystem"));;
 		verify(mockToggleService).createFeature(eq(mockToggleSystem), ffbCaptor.capture(), isA(String.class));
 		assertEquals("newFeature", ffbCaptor.getValue().getFeatureName());
-		assertEquals("This%20is%20a%20test", ffbCaptor.getValue().getDescription());
+		assertEquals("This is a test", ffbCaptor.getValue().getDescription());
 		assertEquals("LIMITED", ffbCaptor.getValue().getStatus());
 		assertTrue(ffbCaptor.getValue().isLimited());
 		assertFalse(ffbCaptor.getValue().isNotReleased());

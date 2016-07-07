@@ -1,28 +1,25 @@
 package com.suru.fts.api.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.suru.fts.MockMVCBaseTest;
+import com.suru.fts.api.dto.FeaturesForIdResponse;
+import com.suru.fts.mongo.domain.Feature;
+import com.suru.fts.mongo.domain.ToggleSystem;
+import com.suru.fts.service.ToggleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.suru.fts.MockMVCBaseTest;
-import com.suru.fts.api.dto.FeaturesForIdResponse;
-import com.suru.fts.mongo.domain.Feature;
-import com.suru.fts.mongo.domain.ToggleSystem;
-import com.suru.fts.service.ToggleService;
-import com.suru.fts.api.controller.ApiController;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ApiControllerTest extends MockMVCBaseTest {

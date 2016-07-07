@@ -1,19 +1,10 @@
 package com.suru.fts.controller;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyList;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import com.suru.fts.MockMVCBaseTest;
+import com.suru.fts.model.ViewModelBuilder;
+import com.suru.fts.mongo.domain.FeatureGroup;
+import com.suru.fts.mongo.domain.ToggleSystem;
+import com.suru.fts.service.ToggleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,11 +13,19 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.suru.fts.MockMVCBaseTest;
-import com.suru.fts.mongo.domain.FeatureGroup;
-import com.suru.fts.mongo.domain.ToggleSystem;
-import com.suru.fts.model.ViewModelBuilder;
-import com.suru.fts.service.ToggleService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FeatureToggleHomeControllerTest extends MockMVCBaseTest {

@@ -1,15 +1,16 @@
 package com.suru.fts;
 
-import static org.springframework.test.web.server.setup.MockMvcBuilders.standaloneSetup;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.web.server.MockMvc;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 @RunWith(MockitoJUnitRunner.class)
+@WebAppConfiguration
 public abstract class MockMVCBaseTest {
 
 	protected MockMvc mockMVC;

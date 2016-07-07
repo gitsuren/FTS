@@ -1,18 +1,13 @@
 package com.suru.fts.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.isA;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.server.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.server.result.MockMvcResultMatchers.view;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.suru.fts.MockMVCBaseTest;
+import com.suru.fts.model.ViewModelBuilder;
+import com.suru.fts.mongo.domain.Feature;
+import com.suru.fts.mongo.domain.FeatureGroup;
+import com.suru.fts.mongo.domain.ToggleSystem;
+import com.suru.fts.mongo.domain.strategy.FeatureStrategy;
+import com.suru.fts.mongo.domain.strategy.GroupStrategy;
+import com.suru.fts.service.ToggleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -23,15 +18,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.suru.fts.MockMVCBaseTest;
-import com.suru.fts.dto.GroupStrategyFormBean;
-import com.suru.fts.mongo.domain.Feature;
-import com.suru.fts.mongo.domain.FeatureGroup;
-import com.suru.fts.mongo.domain.ToggleSystem;
-import com.suru.fts.mongo.domain.strategy.FeatureStrategy;
-import com.suru.fts.mongo.domain.strategy.GroupStrategy;
-import com.suru.fts.model.ViewModelBuilder;
-import com.suru.fts.service.ToggleService;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
 @RunWith(MockitoJUnitRunner.class)

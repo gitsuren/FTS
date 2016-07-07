@@ -21,18 +21,7 @@
                     <contextPath>/fts</contextPath>
                 </webApp>
             </configuration>
-               <!--  <configuration>
-                    <stopKey>foo</stopKey>
-                    <stopPort>9999</stopPort>
-                    <reload>manual</reload>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>ENVIRONMENT_NAME</name>
-                            <value>local</value>
-                        </systemProperty>
-                    </systemProperties>
-                </configuration>  -->
-            </plugin>
+        </plugin>
     <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -79,8 +68,8 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
 		</dependency>
 
 		<dependency>
@@ -203,6 +192,12 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.0.5.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
