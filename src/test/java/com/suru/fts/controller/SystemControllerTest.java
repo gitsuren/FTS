@@ -198,6 +198,7 @@ public class SystemControllerTest extends MockMVCBaseTest {
 		String desc = "any description";
 		String viewName = "redirect:/admin/system/TestSystem";
 		ArgumentCaptor<ToggleSystemFormBean> tsfb=ArgumentCaptor.forClass(ToggleSystemFormBean.class);
+		//TODO : fix me - is it really FOUND or OK??
 		mockMVC.perform(post("/admin/system/TestSystem/edit").param("systemName", "TestSystem").param("description", "any description")).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name(viewName));
 		verify(mockToggleService).updateSystem(tsfb.capture(), isA(String.class));
 		assertEquals(systemName, tsfb.getValue().getSystemName());
