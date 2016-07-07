@@ -1,16 +1,14 @@
 package com.suru.fts.dto.mapper;
 
-import static org.junit.Assert.assertEquals;
-
+import com.suru.fts.dto.MemberFormBean;
+import com.suru.fts.mongo.domain.FeatureGroup;
+import com.suru.fts.mongo.domain.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.suru.fts.dto.MemberFormBean;
-import com.suru.fts.dto.mapper.MemberFormBeanMapper;
-import com.suru.fts.mongo.domain.FeatureGroup;
-import com.suru.fts.mongo.domain.Member;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MemberFormBeanMapperTest {
@@ -32,7 +30,7 @@ public class MemberFormBeanMapperTest {
 		
 		MemberFormBean bean = mapper.mapToBean(member);
 		assertEquals(MEMBER_ID, bean.getMemberId());
-		assertEquals("/admin/group/description/member/sb95447/delete", bean.getDeleteHref());
+		assertEquals("/admin/group/TESTERS/member/sb95447/delete", bean.getDeleteHref());
 	}
 
 }

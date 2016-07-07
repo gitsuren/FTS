@@ -68,7 +68,7 @@ public class StrategyControllerTest extends MockMVCBaseTest {
 		when(mockToggleSystem.getFeatureByName("feature1")).thenReturn(mockFeature);
 		mockMVC.perform(
 				post("/admin/system/testSystem/feature/feature1/strategies/add").param("strategyType", "GROUP").param("strategyName", ANY_STRATEGY_NAME))
-				.andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name("redirect:/admin/system/testSystem/feature/feature1/strategy/group/anyStrategyName"));
+				.andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name("redirect:/admin/system/testSystem/feature/feature1/strategy/group/anyStrategyName"));
 		//verify(mockToggleService).createStrategy(isA(Feature.class), isA(StrategyFormBean.class), isA(String.class));
 	}
 }

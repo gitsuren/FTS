@@ -1,11 +1,10 @@
 package com.suru.fts.domain;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
 import com.suru.fts.mongo.domain.FeatureGroup;
 import com.suru.fts.mongo.domain.Member;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class MemberTest {
 
@@ -21,7 +20,7 @@ public class MemberTest {
 		member.setFeatureGroupName(ANY_NAME);
 		member.setMemberId(ANY_NAME);
 		//assertEquals(ANY_ID, member.getId());
-		assertEquals(featureGroup, member.getFeatureGroupName());
+		assertEquals(ANY_NAME, member.getFeatureGroupName());
 		assertEquals(ANY_NAME, member.getMemberId());
 	}
 }

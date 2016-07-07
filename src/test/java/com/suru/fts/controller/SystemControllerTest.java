@@ -145,7 +145,7 @@ public class SystemControllerTest extends MockMVCBaseTest {
 		ArgumentCaptor<ToggleSystemFormBean> tsfb=ArgumentCaptor.forClass(ToggleSystemFormBean.class);
 		when(mockToggleService.createSystem(tsfb.capture(), isA(String.class))).thenReturn(mockToggleSystem);
 		when(mockToggleSystem.getSystemName()).thenReturn(systemName);
-		mockMVC.perform(post("/admin/systems/create").param("systemName", systemName).param("description", desc)).andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name("redirect:/admin/system/TestSystem"));
+		mockMVC.perform(post("/admin/systems/create").param("systemName", systemName).param("description", desc)).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name("redirect:/admin/system/TestSystem"));
 		verify(mockToggleService).createSystem(tsfb.capture(), isA(String.class));
 		assertEquals(systemName, tsfb.getValue().getSystemName());
 		assertEquals(desc, tsfb.getValue().getDescription());
@@ -156,7 +156,7 @@ public class SystemControllerTest extends MockMVCBaseTest {
 	public void testdeleteSystemPostAction() throws Exception {
 
 		when(mockToggleService.getSystem("123435")).thenReturn(mockToggleSystem);
-		mockMVC.perform(post("/admin/system/delete?systemName=123435").param("action", "delete")).andExpect(status().is(HttpStatus.OK.value()))
+		mockMVC.perform(post("/admin/system/delete?systemName=123435").param("action", "delete")).andExpect(status().is(HttpStatus.FOUND.value()))
 				.andExpect(view().name("redirect:/admin"));
 		verify(mockToggleService, times(1)).deleteSystem(mockToggleSystem);
 	}
@@ -171,7 +171,7 @@ public class SystemControllerTest extends MockMVCBaseTest {
 	@Test
 	public void testdeleteSystemPostActionOnCancel() throws Exception {
 
-		mockMVC.perform(post("/admin/system/delete?systemName=123435").param("action", "cancel")).andExpect(status().is(HttpStatus.OK.value()))
+		mockMVC.perform(post("/admin/system/delete?systemName=123435").param("action", "cancel")).andExpect(status().is(HttpStatus.FOUND.value()))
 				.andExpect(view().name("redirect:/admin"));
 	}
 
@@ -198,7 +198,7 @@ public class SystemControllerTest extends MockMVCBaseTest {
 		String desc = "any description";
 		String viewName = "redirect:/admin/system/TestSystem";
 		ArgumentCaptor<ToggleSystemFormBean> tsfb=ArgumentCaptor.forClass(ToggleSystemFormBean.class);
-		mockMVC.perform(post("/admin/system/TestSystem/edit").param("systemName", "TestSystem").param("description", "any description")).andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name(viewName));
+		mockMVC.perform(post("/admin/system/TestSystem/edit").param("systemName", "TestSystem").param("description", "any description")).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name(viewName));
 		verify(mockToggleService).updateSystem(tsfb.capture(), isA(String.class));
 		assertEquals(systemName, tsfb.getValue().getSystemName());
 		assertEquals(desc, tsfb.getValue().getDescription());

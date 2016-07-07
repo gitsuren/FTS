@@ -69,7 +69,7 @@ public class FeatureControllerTest extends MockMVCBaseTest {
 		when(mockToggleSystem.getFeatureByName("featureName")).thenReturn(feature);
 		when(mockToggleModelBuilder.buildSystemModel(mockToggleSystem)).thenReturn(modelAndView);
 		mockMVC.perform(get("/admin/system/testSystem/feature/featureName/delete")).andExpect(status().is(HttpStatus.OK.value()));
-		verify(mockToggleService).deleteFeature(feature);
+		verify(mockToggleService).deleteFeature("testSystem", "featureName");
 	}
 	
 	@Test
@@ -105,10 +105,10 @@ public class FeatureControllerTest extends MockMVCBaseTest {
 		ArgumentCaptor<FeatureFormBean> ffbCaptor = ArgumentCaptor.forClass(FeatureFormBean.class);
 		when(mockToggleService.getSystem("testSystem")).thenReturn(mockToggleSystem);
 		when(mockToggleSystem.getFeatureByName("newFeature")).thenReturn(feature);
-		mockMVC.perform(post("/admin/system/testSystem/feature/featureName?featureName=newFeature&description=This is a test&status=RELEASED")).andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name("redirect:/admin/system/testSystem"));
+		mockMVC.perform(post("/admin/system/testSystem/feature/featureName?featureName=newFeature&description=This is a test&status=RELEASED")).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name("redirect:/admin/system/testSystem"));
 		verify(mockToggleService).updateFeature(eq(mockToggleSystem), ffbCaptor.capture(), isA(String.class));
 		assertEquals("newFeature", ffbCaptor.getValue().getFeatureName());
-		assertEquals("This%20is%20a%20test", ffbCaptor.getValue().getDescription());
+		assertEquals("This is a test", ffbCaptor.getValue().getDescription());
 		assertEquals("RELEASED", ffbCaptor.getValue().getStatus());
 	}
 }

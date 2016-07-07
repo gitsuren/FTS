@@ -1,17 +1,15 @@
 package com.suru.fts.dto.mapper;
 
-import static org.junit.Assert.assertEquals;
-
+import com.suru.fts.dto.FeatureFormBean;
+import com.suru.fts.mongo.domain.Feature;
+import com.suru.fts.mongo.domain.FeatureStatus;
+import com.suru.fts.mongo.domain.ToggleSystem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.suru.fts.dto.FeatureFormBean;
-import com.suru.fts.dto.mapper.FeatureFormBeanMapper;
-import com.suru.fts.mongo.domain.Feature;
-import com.suru.fts.mongo.domain.FeatureStatus;
-import com.suru.fts.mongo.domain.ToggleSystem;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FeatureFormBeanMapperTest {
@@ -33,8 +31,8 @@ public class FeatureFormBeanMapperTest {
 		assertEquals(ANY_FEATURE_NAME, bean.getFeatureName());
 		assertEquals(ANY_FEATURE_DESCRIPTION, bean.getDescription());
 		assertEquals(ANY_FEATURE_STATUS_NAME, bean.getStatus());
-		assertEquals(ANY_SYSTEM_NAME, bean.getSystemName());
-		String uri = "/admin/system/TestSystem/feature/TestFeature";
+		assertEquals("S1", bean.getSystemName());
+		String uri = "/admin/system/S1/feature/TestFeature";
 		assertEquals(uri, bean.getDetailHref());
 		assertEquals(uri + "/delete", bean.getDeleteHref());
 		assertEquals(uri + "/edit", bean.getEditHref());

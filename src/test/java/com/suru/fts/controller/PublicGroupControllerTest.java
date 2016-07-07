@@ -82,7 +82,7 @@ public class PublicGroupControllerTest extends MockMVCBaseTest {
 
 		FeatureGroup group = new FeatureGroup();
 		when(mockToggleService.getGroup(ANY_GROUP_NAME)).thenReturn(group);
-		mockMVC.perform(get("/admin/group/group1/delete")).andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name("redirect:/admin"));
+		mockMVC.perform(get("/admin/group/group1/delete")).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name("redirect:/admin"));
 		verify(mockToggleService).deleteGroup(group);
 	}
 
@@ -107,7 +107,7 @@ public class PublicGroupControllerTest extends MockMVCBaseTest {
 		FeatureGroup featureGroup = new FeatureGroup();
 		featureGroup.setDescription(ANY_GROUP_NAME);
 		when(mockToggleService.createFeatureGroup(isA(FeatureGroupFormBean.class), isA(String.class))).thenReturn(featureGroup);
-		mockMVC.perform(post("/admin/groups").param("description", ANY_GROUP_NAME)).andExpect(status().is(HttpStatus.OK.value()))
+		mockMVC.perform(post("/admin/groups").param("description", ANY_GROUP_NAME)).andExpect(status().is(HttpStatus.FOUND.value()))
 				.andExpect(view().name("redirect:/admin/group/group1"));
 	}
 
@@ -119,7 +119,7 @@ public class PublicGroupControllerTest extends MockMVCBaseTest {
 		Member mockMember = Mockito.mock(Member.class);
 		when(mockFeatureGroup.getMember(ANY_MEMBER_NAME)).thenReturn(mockMember);
 		when(mockToggleService.getGroup(ANY_GROUP_NAME)).thenReturn(mockFeatureGroup);
-		mockMVC.perform(get("/admin/group/group1/member/member1/delete")).andExpect(status().is(HttpStatus.OK.value())).andExpect(view().name("redirect:/admin/group/group1"));
+		mockMVC.perform(get("/admin/group/group1/member/member1/delete")).andExpect(status().is(HttpStatus.FOUND.value())).andExpect(view().name("redirect:/admin/group/group1"));
 		verify(mockToggleService).deleteMember(isA(Member.class));
 	}
 
@@ -130,7 +130,7 @@ public class PublicGroupControllerTest extends MockMVCBaseTest {
 		FeatureGroup mockFeatureGroup = Mockito.mock(FeatureGroup.class);
 		when(mockToggleService.getGroup(ANY_GROUP_NAME)).thenReturn(mockFeatureGroup);
 		ArgumentCaptor<MemberFormBean> formBeanArgumentCaptor = ArgumentCaptor.forClass(MemberFormBean.class);
-		mockMVC.perform(post("/admin/group/group1/members").param("memberId", ANY_MEMBER_ID)).andExpect(status().is(HttpStatus.OK.value()))
+		mockMVC.perform(post("/admin/group/group1/members").param("memberId", ANY_MEMBER_ID)).andExpect(status().is(HttpStatus.FOUND.value()))
 				.andExpect(view().name("redirect:/admin/group/group1"));
 		verify(mockToggleService).getGroup(ANY_GROUP_NAME);
 		verify(mockToggleService).addMember(eq(mockFeatureGroup), formBeanArgumentCaptor.capture(), isA(String.class));
