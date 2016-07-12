@@ -1,32 +1,21 @@
 package com.suru.fts.model;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.suru.fts.dto.FeatureFormBean;
-import com.suru.fts.dto.FeatureGroupFormBean;
-import com.suru.fts.dto.GroupStrategyFormBean;
-import com.suru.fts.dto.MemberFormBean;
-import com.suru.fts.dto.PublicGroupDeleteExceptionFormBean;
-import com.suru.fts.dto.StrategyFormBean;
-import com.suru.fts.dto.mapper.FeatureFormBeanMapper;
-import com.suru.fts.dto.mapper.FeatureGroupFormBeanMapper;
-import com.suru.fts.dto.mapper.MemberFormBeanMapper;
-import com.suru.fts.dto.mapper.PublicGroupDeleteExceptionMapper;
-import com.suru.fts.dto.mapper.StrategyFormBeanMapper;
-import com.suru.fts.dto.mapper.ToggleSystemFormBeanMapper;
+import com.suru.fts.dto.*;
+import com.suru.fts.dto.mapper.*;
 import com.suru.fts.mongo.domain.Feature;
 import com.suru.fts.mongo.domain.FeatureGroup;
 import com.suru.fts.mongo.domain.Member;
 import com.suru.fts.mongo.domain.ToggleSystem;
 import com.suru.fts.mongo.domain.strategy.GroupStrategy;
 import com.suru.fts.routes.Routes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Component
 public class ViewModelBuilder {
@@ -48,7 +37,7 @@ public class ViewModelBuilder {
 	public static final String STRATEGIES = "strategies";
 	private static final String ADD_FEATURE_HREF = "addFeatureHref";
 
-	private static final String VIEW_ROOT_TEMPLATE = "/admin/%s";
+	private static final String VIEW_ROOT_TEMPLATE = "admin/%s";
 	private static final String SYSTEM_LISTS_VIEW = "systemlist";
 	private static final String SYSTEM_VIEW = "system";
 	private static final String SYSTEMS_EDIT_VIEW = "systemsEdit";

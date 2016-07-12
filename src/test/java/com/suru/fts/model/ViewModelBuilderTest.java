@@ -1,20 +1,15 @@
 package com.suru.fts.model;
 
-import static com.suru.fts.model.ViewModelBuilder.FEATURES;
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Sets.newHashSet;
-import static org.hamcrest.Matchers.sameInstance;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.google.common.collect.Lists;
+import com.suru.fts.dto.*;
+import com.suru.fts.dto.mapper.*;
+import com.suru.fts.mongo.domain.Feature;
+import com.suru.fts.mongo.domain.FeatureGroup;
+import com.suru.fts.mongo.domain.Member;
+import com.suru.fts.mongo.domain.ToggleSystem;
+import com.suru.fts.mongo.domain.strategy.FeatureStrategy;
+import com.suru.fts.mongo.domain.strategy.GroupStrategy;
+import com.suru.fts.routes.Routes;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,26 +20,17 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.suru.fts.dto.FeatureFormBean;
-import com.suru.fts.dto.FeatureGroupFormBean;
-import com.suru.fts.dto.GroupStrategyFormBean;
-import com.suru.fts.dto.MemberFormBean;
-import com.suru.fts.dto.StrategyFormBean;
-import com.suru.fts.dto.ToggleSystemFormBean;
-import com.suru.fts.dto.mapper.FeatureFormBeanMapper;
-import com.suru.fts.dto.mapper.FeatureGroupFormBeanMapper;
-import com.suru.fts.dto.mapper.MemberFormBeanMapper;
-import com.suru.fts.dto.mapper.PublicGroupDeleteExceptionMapper;
-import com.suru.fts.dto.mapper.StrategyFormBeanMapper;
-import com.suru.fts.dto.mapper.ToggleSystemFormBeanMapper;
-import com.suru.fts.mongo.domain.Feature;
-import com.suru.fts.mongo.domain.FeatureGroup;
-import com.suru.fts.mongo.domain.Member;
-import com.suru.fts.mongo.domain.ToggleSystem;
-import com.suru.fts.mongo.domain.strategy.FeatureStrategy;
-import com.suru.fts.mongo.domain.strategy.GroupStrategy;
-import com.suru.fts.routes.Routes;
-import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
+import static com.suru.fts.model.ViewModelBuilder.FEATURES;
+import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ViewModelBuilderTest {
@@ -103,7 +89,7 @@ public class ViewModelBuilderTest {
 	public void testBuildSystemModel() {
 
 		ModelAndView result = classToTest.buildSystemModel(toggleSystem);
-		assertEquals("/admin/system", result.getViewName());
+		assertEquals("admin/system", result.getViewName());
 		assertEquals(3, result.getModel().size());
 
 		ToggleSystemFormBean actualToggleSystemBean = (ToggleSystemFormBean) result.getModel().get("system");
@@ -124,7 +110,7 @@ public class ViewModelBuilderTest {
 		when(featureBeanMapper.mapToBean(Matchers.<List> any())).thenReturn(null);
 
 		ModelAndView result = classToTest.buildSystemModel(toggleSystem);
-		assertEquals("/admin/system", result.getViewName());
+		assertEquals("admin/system", result.getViewName());
 		assertEquals(3, result.getModel().size());
 		ToggleSystemFormBean actualToggleSystemBean = (ToggleSystemFormBean) result.getModel().get("system");
 
@@ -139,7 +125,7 @@ public class ViewModelBuilderTest {
 
 		List<ToggleSystem> systems = new ArrayList<ToggleSystem>();
 		ModelAndView result = classToTest.buildSystemsModel(systems);
-		assertEquals("/admin/systemlist", result.getViewName());
+		assertEquals("admin/systemlist", result.getViewName());
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -159,7 +145,7 @@ public class ViewModelBuilderTest {
 		when(strategyFormBeanMapper.mapToBean(Matchers.<List> any())).thenReturn(stBeans);
 
 		ModelAndView result = classToTest.buildFeatureModel(feature);
-		assertEquals("/admin/feature", result.getViewName());
+		assertEquals("admin/feature", result.getViewName());
 		assertEquals(4, result.getModel().size());
 		assertEquals("/admin/system/MyShinySystem/feature/feature5000",result.getModel().get("addOrEditAction"));
 		assertEquals(fBean,result.getModel().get("feature"));
@@ -184,7 +170,7 @@ public class ViewModelBuilderTest {
 	public void testBuildFeatureCreateModel() {
 
 		ModelAndView result = classToTest.buildFeatureCreateModel(ANY_SYSTEM_NAME);
-		assertEquals("/admin/feature", result.getViewName());
+		assertEquals("admin/feature", result.getViewName());
 		assertEquals(3, result.getModel().size());
 		assertEquals("/admin/system/MyShinySystem/features/add",result.getModel().get("addOrEditAction"));
 		assertEquals(false,result.getModel().get("isEdit"));
@@ -194,7 +180,7 @@ public class ViewModelBuilderTest {
 	public void testBuildDeleteConfirmationView() {
 
 		ModelAndView result = classToTest.buildDeleteConfirmationView(ANY_SYSTEM_NAME, CANCEL_CLASS_NAME, CANCEL_HREF);
-		assertEquals("/admin/deleteSystemConfirmation", result.getViewName());
+		assertEquals("admin/deleteSystemConfirmation", result.getViewName());
 		assertEquals(CANCEL_CLASS_NAME, result.getModel().get("cancelClass"));
 		assertEquals(CANCEL_HREF, result.getModel().get("cancelHref"));
 		assertEquals("/admin/system/delete", result.getModel().get("deleteHref"));
@@ -232,7 +218,7 @@ public class ViewModelBuilderTest {
 		
 		ModelAndView result = classToTest.buildGroupStrategyModel(strategy, groupsList);
 		assertEquals(6, result.getModel().size());
-		assertEquals("/admin/groupStrategy", result.getViewName());
+		assertEquals("admin/groupStrategy", result.getViewName());
 		assertEquals(true, result.getModel().get("isEdit"));
 		assertEquals("/admin/system/MyShinySystem/feature/feature5000/strategy/group/Group",
 				result.getModel().get("addOrEditAction"));
@@ -250,7 +236,7 @@ public class ViewModelBuilderTest {
 	public void testBuildGroupStrategyCreateModel() {
 
 		ModelAndView result = classToTest.buildGroupStrategyCreateModel(ANY_SYSTEM_NAME, ANY_FEATURE_NAME,ANY_STRATEGY_NAME);
-		assertEquals("/admin/groupStrategy", result.getViewName());
+		assertEquals("admin/groupStrategy", result.getViewName());
 		assertEquals(false, result.getModel().get("isEdit"));
 		assertEquals("/admin/system/MyShinySystem/feature/feature5000/strategy/group/testStrategy/add",
 				result.getModel().get("addOrEditAction"));
@@ -260,7 +246,7 @@ public class ViewModelBuilderTest {
 	@Test
 	public void testBuildStrategyCreateModel() {
 		ModelAndView result = classToTest.buildStrategyCreateModel(ANY_SYSTEM_NAME, ANY_FEATURE_NAME);
-		assertEquals("/admin/strategy", result.getViewName());
+		assertEquals("admin/strategy", result.getViewName());
 		assertEquals("/admin/system/MyShinySystem/feature/feature5000/strategies/add",
 				result.getModel().get("addOrEditAction"));
 	}
@@ -287,7 +273,7 @@ public class ViewModelBuilderTest {
 		when(featureGroupFormBeanMapper.mapToBean(group)).thenReturn(featureGroupFormBean);
 		ModelAndView result = classToTest.buildPublicGroupModel(group);
 		assertEquals(4, result.getModel().size());
-		assertEquals("/admin/publicGroup", result.getViewName());
+		assertEquals("admin/publicGroup", result.getViewName());
 		assertEquals(memFormBeans, result.getModel().get("members"));
 		assertEquals(featureGroupFormBean, result.getModel().get("group"));
 		assertEquals(true, result.getModel().get("isEdit"));
@@ -297,7 +283,7 @@ public class ViewModelBuilderTest {
 	@Test
 	public void testBuildPublicGroupCreateModel(){
 		ModelAndView result = classToTest.buildPublicGroupCreateModel();
-		assertEquals("/admin/publicGroup", result.getViewName());
+		assertEquals("admin/publicGroup", result.getViewName());
 		assertEquals(false, result.getModel().get("isEdit"));
 		assertEquals(Routes.PUBLIC_GROUP_URI_ADD, result.getModel().get("addOrEditAction"));
 		
@@ -322,7 +308,7 @@ public class ViewModelBuilderTest {
 		when(featureGroupFormBeanMapper.mapToBean(groupsList)).thenReturn(fgbList);
 		ModelAndView result = classToTest.buildHomeModel(systemsList, groupsList);
 		assertEquals(4, result.getModel().size());
-		assertEquals("/admin/home", result.getViewName());
+		assertEquals("admin/home", result.getViewName());
 		
 		List<ToggleSystemFormBean> systembeans = (List<ToggleSystemFormBean>) result.getModel().get("systems");
 		assertEquals(1, systembeans.size());
@@ -335,7 +321,7 @@ public class ViewModelBuilderTest {
 	@Test
 	public void testBuildSystemCreateModel(){
 		ModelAndView addMV = classToTest.buildSystemCreateModel(false, ANY_SYSTEM_NAME);
-		String expectedView = "/admin/systemsEdit";
+		String expectedView = "admin/systemsEdit";
 		assertEquals(expectedView, addMV.getViewName());
 		assertEquals("/admin/systems/create", addMV.getModel().get("addOrEditAction"));
 		
@@ -348,7 +334,7 @@ public class ViewModelBuilderTest {
 	public void testBuildMemberCreateModel(){
 		ModelAndView result = classToTest.buildMemberCreateModel(ANY_GROUP_DESCRIPTION);
 		assertEquals(1, result.getModel().size());
-		String expectedView = "/admin/member";
+		String expectedView = "admin/member";
 		assertEquals(expectedView, result.getViewName());
 		assertEquals("/admin/group/anyGroupDescription/members", result.getModel().get("addOrEditAction"));
 	}
@@ -361,7 +347,7 @@ public class ViewModelBuilderTest {
 		groupNames.add("GROUP1");
 		ModelAndView result = classToTest.buildGroupStrategyChooseFeatureGroupModel(ANY_STRATEGY_NAME, ANY_FEATURE_NAME,ANY_STRATEGY_NAME, groupNames);
 		assertEquals(2, result.getModel().size());
-		assertEquals("/admin/chooseFeatureGroup", result.getViewName());
+		assertEquals("admin/chooseFeatureGroup", result.getViewName());
 		assertEquals("/admin/system/testStrategy/feature/feature5000/strategy/group/testStrategy/groups", result.getModel().get("addOrEditAction"));
 		assertEquals(groupNames, result.getModel().get("groupNames"));
 		assertEquals(1, ((List<String>) result.getModel().get("groupNames")).size());
@@ -371,7 +357,7 @@ public class ViewModelBuilderTest {
 	public void testBuildFeaturesForUserPage(){
 		List<ToggleSystem> systems = newArrayList();
 		ModelAndView result =classToTest.buildFeaturesForUserPage(systems);
-		assertEquals("/admin/featureForUser", result.getViewName());
+		assertEquals("admin/featureForUser", result.getViewName());
 		assertEquals(1, result.getModel().size());
 		assertEquals(systems, result.getModel().get("systems"));
 	}
@@ -382,7 +368,7 @@ public class ViewModelBuilderTest {
 		featureNames.add("sb95447");
 		List<ToggleSystem> systems = newArrayList();
 		ModelAndView result =classToTest.buildSystemFeaturesForUserModel(ANY_SYSTEM_NAME, USER,featureNames,systems);
-		assertEquals("/admin/featureForUser", result.getViewName());
+		assertEquals("admin/featureForUser", result.getViewName());
 		assertEquals(6, result.getModel().size());
 		assertEquals(ANY_SYSTEM_NAME, result.getModel().get("systemName"));
 		assertEquals(USER, result.getModel().get("userId"));
@@ -408,7 +394,7 @@ public class ViewModelBuilderTest {
 		when(mockFeature.getSystemName()).thenReturn("S1");
 		when(mockSystem.getSystemName()).thenReturn(ANY_SYSTEM_NAME);
 		ModelAndView result = classToTest.buildPublicGroupDeleteExceptionModel(ANY_GROUP_NAME, strategies);
-		assertEquals("/admin/publicGroupDeleteException", result.getViewName());
+		assertEquals("admin/publicGroupDeleteException", result.getViewName());
 		assertEquals(2, result.getModel().size());
 		assertEquals(ANY_GROUP_NAME, result.getModel().get("groupName"));
 		

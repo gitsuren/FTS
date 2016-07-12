@@ -6,7 +6,7 @@
 		<title>Welcome</title>
 	</head> 
 	<body>
-	<h2>IT WORKS!!!</h2>
+	<h2>IT WORKS - OMG!!!</h2>
 		<td width="100%"><b>&nbsp;Current  Date 
 and time is:&nbsp; <font color="#FF0000">
 
