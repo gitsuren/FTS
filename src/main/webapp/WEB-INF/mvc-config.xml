@@ -67,7 +67,7 @@
 <constructor-arg name="userCredentials" ref="mongoCredentials"/>
 </bean>
 
-<!-- Factory bean that creates the Mongo instance -->
+<!-- Factory bean that creates the Mongo instance 
 <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
 <property name="host" value="ds033153.mlab.com"/>
 <property name="port" value="33153"/>
@@ -77,6 +77,11 @@
   class="org.springframework.data.authentication.UserCredentials">
      <constructor-arg name="username" value="suren" />
      <constructor-arg name="password" value="suren" />
+</bean> -->
+
+<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+<property name="host" value="localhost"/>
+<property name="port" value="27017"/>
 </bean>
 
 	<mongo:repositories base-package="com.suru.fts.mongo.repository" />
