@@ -7,7 +7,7 @@
 	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
@@ -24,7 +24,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving
 		up static resources in the ${webappRoot}/resources directory -->
 	<!-- <mvc:resources mapping="/**" location="/" /> -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -46,48 +46,28 @@
 			</list>
 		</property>
 	</bean>
-
-<!-- 	<mongo:mongo host="ds033153.mlab.com" port="33153" />
-	<mongo:db-factory dbname="fts" username="suren"
-		password="suren" />
-
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
-	</bean> -->
-
-
-<!-- 	<bean id="template" class="org.springframework.data.mongodb.core.MongoTemplate"> 
-		<constructor-arg> <bean class="com.mongodb.MongoClient"> <constructor-arg 
-		value="ds033153.mlab.com" /> <constructor-arg value="33153" /> </bean> </constructor-arg> 
-		<constructor-arg value="fts" /> </bean>  -->
-		
-		<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 <constructor-arg name="mongo" ref="mongo"/>
 <constructor-arg name="databaseName" value="fts"/>
 <constructor-arg name="userCredentials" ref="mongoCredentials"/>
 </bean>
 
-<!-- Factory bean that creates the Mongo instance 
-<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-<property name="host" value="ds033153.mlab.com"/>
-<property name="port" value="33153"/>
+<bean id="mongoCredentials"
+  class="org.springframework.data.authentication.UserCredentials">
+     <constructor-arg name="username" value="" />
+     <constructor-arg name="password" value="" />
 </bean>
 
-<bean id="mongoCredentials" 
-  class="org.springframework.data.authentication.UserCredentials">
-     <constructor-arg name="username" value="suren" />
-     <constructor-arg name="password" value="suren" />
-</bean> -->
-
 <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
-<property name="host" value="localhost"/>
+<!--<property name="host" value="172.17.0.1"/>-->
+<property name="host" value="mymongoDB"/>
 <property name="port" value="27017"/>
 </bean>
 
 	<mongo:repositories base-package="com.suru.fts.mongo.repository" />
 
-	<!-- Tiles configuration <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer"> 
-		<property name="definitions"> <list> <value>/WEB-INF/tiles/tiles-definitions.xml</value> 
+	<!-- Tiles configuration <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions"> <list> <value>/WEB-INF/tiles/tiles-definitions.xml</value>
 		</list> </property> </bean> -->
 
 	<bean id="toggleVotingManager" class="com.suru.fts.voter.ToggleVoterManager">

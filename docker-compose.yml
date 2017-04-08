@@ -1,4 +1,29 @@
-fts:
+ftsweb:
     build: .
     ports:
         - 8080:8080
+    container_name: jboss_fts
+    hostname: jboss_fts
+    links:
+        - mongodb:mymongoDB
+
+mongodb:
+    image: mongo
+    container_name: mymongoDB
+    ports:
+        - 27017
+    hostname: mymongoDB
+    volumes:
+        - $HOME/mongo/data/db:/data/db
+
+
+# Dockerizing the project and ochestrating it using docker-compose:
+# FOR RUNNING FTSWEB on wildfly:
+#
+# just run the following command :
+# docker-compose up -d (--build if you have new changes and want to rebuild the image that contains the updated the ftsweb.war)
+#
+# To stop the containers
+# docker-compose down -v
+
+# Launch the app using the link: http://localhost:8080/ftsweb/admin
