@@ -15,11 +15,15 @@
     	<plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.0.7.v20131107</version>
+				<version>9.2.1.v20140609</version>
                 <configuration>
                 <webApp>
                     <contextPath>/fts</contextPath>
                 </webApp>
+				<httpConnector>
+					<!--host>localhost</host-->
+					<port>9999</port>
+				</httpConnector>
             </configuration>
         </plugin>
     <plugin>
