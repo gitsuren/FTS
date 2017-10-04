@@ -60,7 +60,7 @@
 
 <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
 <!--<property name="host" value="172.17.0.1"/>-->
-<property name="host" value="mymongoDB"/>
+<property name="host" value="DTC814D7D3F8462"/>
 <property name="port" value="27017"/>
 </bean>
 
