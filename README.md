@@ -15,3 +15,5 @@ and then add the remote debugger to port 8889
 
 Important links to refer:
 https://javattitude.com/2014/04/20/migrating-spring-3-2-rest-to-spring-4/
+http://www.baeldung.com/spring-boot-actuators
+
