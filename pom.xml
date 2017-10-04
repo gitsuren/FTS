@@ -52,7 +52,7 @@
 
 
 		<!-- Spring -->
-		<spring-framework.version>4.1.6.RELEASE</spring-framework.version>
+		<spring-framework.version>4.3.2.RELEASE</spring-framework.version>
 		<spring-framework-test.version>1.0.0.M2</spring-framework-test.version>
 		
 
