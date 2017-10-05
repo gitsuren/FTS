@@ -3,14 +3,13 @@ package com.suru.fts.service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.FluentIterable;
 import com.suru.fts.dto.FeatureFormBean;
 import com.suru.fts.dto.FeatureGroupFormBean;
 import com.suru.fts.dto.GroupStrategyFormBean;
@@ -259,17 +258,10 @@ public class ToggleService {
 	public void deleteMember(final Member member) {
 	
 		FeatureGroup group = getGroup(member.getFeatureGroupName());
-		//group.getMembers().remove(member);
-		
-		FluentIterable<Member> iterableMembers = FluentIterable.from(
-				group.getMembers()).filter(new Predicate<Member>() {
-
-					@Override
-					public boolean apply(Member m) {
-						return !m.getMemberId().equalsIgnoreCase(member.getMemberId());
-					}
-		});
-		group.setMembers(iterableMembers.toSet());
+		Set<Member> members = group.getMembers().stream()
+				.filter(m -> !m.getMemberId().equalsIgnoreCase(member.getMemberId()))
+				.collect(Collectors.toSet());
+		group.setMembers(members);
 		featureGroupRepository.save(group);
 		
 		//update the toggle system
@@ -309,17 +301,11 @@ public class ToggleService {
 		ToggleSystem toggleSystem = getSystem(systemName);
 		GroupStrategy strategy = getStrategy(toggleSystem, featureName, strategyName);
 		final FeatureGroup featureGroup = getGroup(groupName);
-		//strategy.getGroups().remove(featureGroup);
-		
-		FluentIterable<FeatureGroup> iterableGrps = FluentIterable.from(
-				strategy.getGroups()).filter(new Predicate<FeatureGroup>() {
 
-					@Override
-					public boolean apply(FeatureGroup fg) {
-						return !fg.getDescription().equalsIgnoreCase(featureGroup.getDescription());
-					}
-		});
-		strategy.setGroups(iterableGrps.toSet());
+		Set<FeatureGroup> featureGroups = strategy.getGroups().stream()
+				.filter(fg -> !fg.getDescription().equalsIgnoreCase(featureGroup.getDescription()))
+				.collect(Collectors.toSet());
+		strategy.setGroups(featureGroups);
 		toggleRepository.save(toggleSystem);
 	}
 
@@ -379,20 +365,11 @@ public class ToggleService {
 		strategy.setName(form.getStrategyName().toUpperCase());
 		
 		List<Feature> features = system.getFeatures();
-		
-		FluentIterable<Feature> iterableFeatures = FluentIterable
-				.from(features)
-				.filter(new Predicate<Feature>() {
-
-					@Override
-					public boolean apply(Feature f) {
-
-						return f.getName().equalsIgnoreCase(feature.getName())
-								&& f.getSystemName().equalsIgnoreCase(
-										system.getSystemName());
-					}
-				});
-		iterableFeatures.get(0).getStrategies().add(strategy);
+		features.stream()
+				.filter(f -> f.getName().equalsIgnoreCase(feature.getName()) && f.getSystemName().equalsIgnoreCase(
+				system.getSystemName()))
+				.collect(Collectors.toList())
+				.get(0).getStrategies().add(strategy);
 	}
 	
 	private GroupStrategy getStrategy(final ToggleSystem toggleSystem, final String featureName, final String strategyName) {
