@@ -1,8 +1,11 @@
 package com.suru.fts.actuator.config;
 
 import org.springframework.boot.actuate.autoconfigure.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.EndpointWebMvcAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.HealthIndicatorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.PublicMetricsAutoConfiguration;
+import org.springframework.boot.actuate.endpoint.HealthEndpoint;
+import org.springframework.boot.actuate.endpoint.InfoEndpoint;
 import org.springframework.boot.actuate.endpoint.MetricsEndpoint;
 import org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping;
 import org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter;
@@ -16,7 +19,9 @@ import java.util.Collection;
 
 @Configuration
 @Import({
-        EndpointAutoConfiguration.class, PublicMetricsAutoConfiguration.class, HealthIndicatorAutoConfiguration.class
+        EndpointAutoConfiguration.class,
+        PublicMetricsAutoConfiguration.class,
+        HealthIndicatorAutoConfiguration.class
 })
 public class MyActuatorConfig {
 
@@ -27,6 +32,16 @@ public class MyActuatorConfig {
 
     @Bean
     public EndpointMvcAdapter metricsEndPoint(MetricsEndpoint delegate) {
+        return new EndpointMvcAdapter(delegate);
+    }
+
+    @Bean
+    public EndpointMvcAdapter healthEndPoint(HealthEndpoint delegate) {
+        return new EndpointMvcAdapter(delegate);
+    }
+
+    @Bean
+    public EndpointMvcAdapter infoEndPoint(InfoEndpoint delegate) {
         return new EndpointMvcAdapter(delegate);
     }
 //
