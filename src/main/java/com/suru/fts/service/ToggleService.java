@@ -1,32 +1,23 @@
 package com.suru.fts.service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.suru.fts.dto.FeatureFormBean;
-import com.suru.fts.dto.FeatureGroupFormBean;
-import com.suru.fts.dto.GroupStrategyFormBean;
-import com.suru.fts.dto.MemberFormBean;
-import com.suru.fts.dto.StrategyFormBean;
-import com.suru.fts.dto.ToggleSystemFormBean;
-import com.suru.fts.mongo.domain.Feature;
-import com.suru.fts.mongo.domain.FeatureGroup;
-import com.suru.fts.mongo.domain.FeatureStatus;
-import com.suru.fts.mongo.domain.Member;
-import com.suru.fts.mongo.domain.ToggleSystem;
+import com.suru.fts.dto.*;
+import com.suru.fts.mongo.domain.*;
 import com.suru.fts.mongo.domain.strategy.FeatureStrategy;
 import com.suru.fts.mongo.domain.strategy.GroupStrategy;
 import com.suru.fts.mongo.repository.FeatureGroupRepository;
 import com.suru.fts.mongo.repository.ToggleRepository;
 import com.suru.fts.voter.ToggleVoter;
 import com.suru.fts.voter.ToggleVoterManager;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ToggleService {
@@ -76,7 +67,11 @@ public class ToggleService {
 
 	public ToggleSystem getSystem(String systemName) {
 
-		return toggleRepository.findOne(systemName);
+		Optional<ToggleSystem> system = toggleRepository.findById(systemName);
+		if (system.isPresent())
+			return system.get();
+		else
+			return null;
 	}
 
 
@@ -219,7 +214,12 @@ public class ToggleService {
 
 	public FeatureGroup getGroup(final String groupName) {
 
-		return featureGroupRepository.findOne(groupName);
+//		return featureGroupRepository.findOne(groupName);
+		Optional<FeatureGroup> group = featureGroupRepository.findById(groupName);
+		if (group.isPresent())
+			return group.get();
+		else
+			return null;
 	}
 
 
