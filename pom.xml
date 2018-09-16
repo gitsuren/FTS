@@ -170,7 +170,7 @@
         <!-- Spring -->
         <spring-framework.version>5.0.8.RELEASE</spring-framework.version>
         <spring-boot-actuator.version>2.0.4.RELEASE</spring-boot-actuator.version>
-        <spring-data-mongodb.version>2.0.10.RELEASE</spring-data-mongodb.version>
+        <spring-data-mongodb.version>1.10.15.RELEASE</spring-data-mongodb.version>
 
         <!-- Hibernate / JPA -->
         <hibernate.version>5.3.6.Final</hibernate.version>

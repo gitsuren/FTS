@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -66,12 +65,13 @@ public class ToggleService {
 	}
 
 	public ToggleSystem getSystem(String systemName) {
+		return toggleRepository.findOne(systemName);
 
-		Optional<ToggleSystem> system = toggleRepository.findById(systemName);
-		if (system.isPresent())
-			return system.get();
-		else
-			return null;
+//		Optional<ToggleSystem> system = toggleRepository.findById(systemName);
+//		if (system.isPresent())
+//			return system.get();
+//		else
+//			return null;
 	}
 
 
@@ -214,12 +214,12 @@ public class ToggleService {
 
 	public FeatureGroup getGroup(final String groupName) {
 
-//		return featureGroupRepository.findOne(groupName);
-		Optional<FeatureGroup> group = featureGroupRepository.findById(groupName);
-		if (group.isPresent())
-			return group.get();
-		else
-			return null;
+		return featureGroupRepository.findOne(groupName);
+//		Optional<FeatureGroup> group = featureGroupRepository.findById(groupName);
+//		if (group.isPresent())
+//			return group.get();
+//		else
+//			return null;
 	}
 
 
