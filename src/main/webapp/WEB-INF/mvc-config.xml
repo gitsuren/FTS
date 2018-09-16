@@ -38,22 +38,22 @@
             </list>
         </property>
     </bean>
-    <!--<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">-->
-        <!--<constructor-arg name="mongo" ref="mongo"/>-->
-        <!--<constructor-arg name="databaseName" value="fts"/>-->
-        <!--<constructor-arg name="userCredentials" ref="mongoCredentials"/>-->
-    <!--</bean>-->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongo" ref="mongo"/>
+        <constructor-arg name="databaseName" value="fts"/>
+        <constructor-arg name="userCredentials" ref="mongoCredentials"/>
+    </bean>
 
-    <!--<bean id="mongoCredentials"-->
-          <!--class="org.springframework.data.authentication.UserCredentials">-->
-        <!--<constructor-arg name="username" value=""/>-->
-        <!--<constructor-arg name="password" value=""/>-->
-    <!--</bean>-->
+    <bean id="mongoCredentials"
+          class="org.springframework.data.authentication.UserCredentials">
+        <constructor-arg name="username" value="fts"/>
+        <constructor-arg name="password" value="ftsweb1"/>
+    </bean>
 
-    <!--<bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">-->
-        <!--<property name="host" value="127.0.0.1"/>-->
-        <!--<property name="port" value="27017"/>-->
-    <!--</bean>-->
+    <bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+        <property name="host" value="ds033153.mlab.com"/>
+        <property name="port" value="33153"/>
+    </bean>
 
     <mongo:repositories base-package="com.suru.fts.mongo.repository"/>
 
