@@ -2,10 +2,10 @@
 Test Feature Toggle system with MongoDB
 
 Requires:
--   Java 1.7 +
+-   Java 1.8 +
 -   Maven
 -   MongoDB as backend
--   Spring 4+
+-   Spring 5+
 
 
 If you want to remote debug the code while running through jetty:
